@@ -9,5 +9,4 @@ void main(){
   creaArbolEnArreglo(unArbol);
   imprimirArbol(unArbol, 0);
   fclose(p);
-
 }

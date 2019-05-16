@@ -96,7 +96,7 @@ char *creaArbolEnArreglo(AB *unArbol){
 	printf("\nentra\n");
 	int h, tamanoMax,posicion;
 	h = alturaArbol(unArbol);
-	printf("\naltura: %i\n",h);
+	//printf("\naltura: %i\n",h);
 	tamanoMax = ((2^h)+2)-1;
 	char *arreglo = inicializaArreglo(tamanoMax);
 	copiaArbolenArreglo(unArbol,arreglo,posicion,tamanoMax);
