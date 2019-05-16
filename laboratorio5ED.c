@@ -6,3 +6,4 @@ unArbol = iniciaAB();
 creaArbolEnArreglo(unArbol);
 printf("subiendo archivo")
 printf("subiendo archivo")
+printf("subiendo archivo")
