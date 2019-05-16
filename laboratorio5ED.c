@@ -1,9 +1,13 @@
-#include<stdio.h>
-#include<stdlib.h>
 #include"lab5ED.h"
 
 void main(){
-  unArbol = iniciaAB();
+  FILE *p;
+	AB *unArbol;
+  p = fopen("textoArbol.txt","r");
+  unArbol = malloc(sizeof(AB));
+  unArbol = creaArbol(p);
   creaArbolEnArreglo(unArbol);
-  imprimirArbol(unArbol, 0);  
+  imprimirArbol(unArbol, 0);
+  fclose(p);
+
 }
