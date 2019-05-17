@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 typedef struct _nodo{
 	char dato;
@@ -96,8 +97,10 @@ char *creaArbolEnArreglo(AB *unArbol){
 	printf("\nentra\n");
 	int h, tamanoMax,posicion;
 	h = alturaArbol(unArbol);
-	//printf("\naltura: %i\n",h);
-	tamanoMax = ((2^h)+2)-1;
+	printf("\naltura: %i\n",h);
+	tamanoMax = (pow(2,h+1))-1;
+	printf("\ntamano maximo : %i",tamanoMax);
+
 	char *arreglo = inicializaArreglo(tamanoMax);
 	copiaArbolenArreglo(unArbol,arreglo,posicion,tamanoMax);
 	return arreglo;
