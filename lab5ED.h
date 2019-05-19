@@ -49,6 +49,7 @@ AB *creaArbol(FILE *p){
 
 void imprimirArbol(AB *arbol, int cont){
 	if(arbol == NULL){
+
 		return;
 	}
 	else{
