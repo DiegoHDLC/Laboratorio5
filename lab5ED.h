@@ -12,7 +12,7 @@ AB *iniciaAB();
 char *inicializaArreglo(int);
 int max(int, int);
 int alturaArbol(AB *);
-char *copiaArbolenArreglo(AB *, char *, int, int);
+int copiaArbolenArreglo(AB *, char *, int);
 char *creaArbolEnArreglo(AB *);
 AB *creaArbol(FILE *);
 
@@ -77,31 +77,38 @@ int alturaArbol(AB *unArbol){
 
 char *inicializaArreglo(int tamano){
 	char *arreglo = malloc(sizeof(char)*tamano);
+	//arreglo[1] = '1';
+//	printf("probando: %c", arreglo[1]);
 	return arreglo;
 }
 
-char *copiaArbolenArreglo(AB *unArbol, char *arreglo, int posicion, int tamanoMax){
+int copiaArbolenArreglo(AB *unArbol, char *arreglo, int posicion){
 	if(unArbol == NULL){
 		arreglo[posicion] = 'N';
+		printf("arreglo[%i]: %c\n",posicion, arreglo[posicion]);
 	}
 	arreglo[posicion] = unArbol->dato;
-	copiaArbolenArreglo(unArbol->hizq,arreglo,posicion*2 + 1,tamanoMax);
-	copiaArbolenArreglo(unArbol->hder,arreglo,posicion*2 + 2,tamanoMax);
+	printf("arreglo[%i]: %c\n",posicion, arreglo[posicion]);
+
+	if(unArbol->hizq != NULL){
+		posicion = copiaArbolenArreglo(unArbol->hizq,arreglo,(posicion*2) + 1);
+	}
+	if(unArbol->hder != NULL){
+		posicion = copiaArbolenArreglo(unArbol->hder,arreglo,(posicion*2) + 2);
+	}
 	printf("\n");
-	/*for(int i = 0; i < tamanoMax; i++){
-		printf("[%i] ", arreglo[i]);
-	}*/
-	return arreglo;
+
+	return posicion;
 }
 char *creaArbolEnArreglo(AB *unArbol){
 	printf("\nentra\n");
-	int h, tamanoMax,posicion;
+	int h, tamanoMax,posicion = 0;
 	h = alturaArbol(unArbol);
 	printf("\naltura: %i\n",h);
 	tamanoMax = (pow(2,h+1))-1;
-	printf("\ntamano maximo : %i",tamanoMax);
-
+	//printf("\ntamano maximo : %i",tamanoMax);
 	char *arreglo = inicializaArreglo(tamanoMax);
-	copiaArbolenArreglo(unArbol,arreglo,posicion,tamanoMax);
+	//printf("probando: %c", arreglo[1]);
+	copiaArbolenArreglo(unArbol,arreglo,posicion);
 	return arreglo;
 }
