@@ -12,7 +12,7 @@ AB *iniciaAB();
 char *inicializaArreglo(int);
 int max(int, int);
 int alturaArbol(AB *);
-int copiaArbolenArreglo(AB *, char *, int);
+char *copiaArbolenArreglo(AB *, char *, int);
 char *creaArbolEnArreglo(AB *);
 AB *creaArbol(FILE *);
 
@@ -49,6 +49,10 @@ AB *creaArbol(FILE *p){
 
 void imprimirArbol(AB *arbol, int cont){
 	if(arbol == NULL){
+		for(int i = 0; i < cont; i++){
+			printf("  ");
+		}
+		printf("N\n");
 
 		return;
 	}
@@ -78,38 +82,41 @@ int alturaArbol(AB *unArbol){
 
 char *inicializaArreglo(int tamano){
 	char *arreglo = malloc(sizeof(char)*tamano);
-	//arreglo[1] = '1';
-//	printf("probando: %c", arreglo[1]);
+	for(int i=0; i < tamano; i++){
+		arreglo[i] = '\0';
+	}
 	return arreglo;
 }
 
-int copiaArbolenArreglo(AB *unArbol, char *arreglo, int posicion){
+char *copiaArbolenArreglo(AB *unArbol, char *arreglo, int posicion){
 	if(unArbol == NULL){
 		arreglo[posicion] = 'N';
-		printf("arreglo[%i]: %c\n",posicion, arreglo[posicion]);
 	}
-	arreglo[posicion] = unArbol->dato;
-	printf("arreglo[%i]: %c\n",posicion, arreglo[posicion]);
-
-	if(unArbol->hizq != NULL){
-		posicion = copiaArbolenArreglo(unArbol->hizq,arreglo,(posicion*2) + 1);
+	else{
+		arreglo[posicion] = unArbol->dato;
+			copiaArbolenArreglo(unArbol->hizq,arreglo,(posicion*2) + 1);
+		 	copiaArbolenArreglo(unArbol->hder,arreglo,(posicion*2) + 2);
 	}
-	if(unArbol->hder != NULL){
-		posicion = copiaArbolenArreglo(unArbol->hder,arreglo,(posicion*2) + 2);
-	}
-	printf("\n");
-
-	return posicion;
 }
+
 char *creaArbolEnArreglo(AB *unArbol){
-	printf("\nentra\n");
 	int h, tamanoMax,posicion = 0;
 	h = alturaArbol(unArbol);
-	printf("\naltura: %i\n",h);
-	tamanoMax = (pow(2,h+1))-1;
-	//printf("\ntamano maximo : %i",tamanoMax);
+	tamanoMax = (pow(2,h+2))-1;
 	char *arreglo = inicializaArreglo(tamanoMax);
-	//printf("probando: %c", arreglo[1]);
 	copiaArbolenArreglo(unArbol,arreglo,posicion);
 	return arreglo;
+}
+
+void imprimirArreglo(int tamano, char *arreglo){
+	for(int i=0;i<tamano;i++){
+    if(arreglo[i] != '\0'){
+			if(arreglo[i] == 'N'){
+				 printf("arreglo[%i]: %c\n", i, arreglo[i]);
+			}else{
+				printf("arreglo[%i]: %c\n", i,arreglo[i]);
+			}
+    }
+	}
+	printf("\n");
 }
